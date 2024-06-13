@@ -1,7 +1,11 @@
 package com.scaler.demoproject.controller;
 
+import com.scaler.demoproject.dto.ErrorDto;
+import com.scaler.demoproject.exceptions.ProductNotFoundException;
 import com.scaler.demoproject.model.Product;
 import com.scaler.demoproject.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,13 +35,25 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public Product getProduct(@PathVariable("id") Long productId) {
+    public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
         Product currentProduct = productService.getSingleProduct(productId);
-        return currentProduct;
+        ResponseEntity<Product> res = new ResponseEntity<>(
+                currentProduct, HttpStatus.OK
+        );
+        return res;
+//        return currentProduct;
     }
 
     @GetMapping("/products")
     public void getAllProducts() {
         productService.getAllProducts();
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleProductNotFoundException(Exception e){
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setMessage(e.getMessage());
+
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
     }
 }
