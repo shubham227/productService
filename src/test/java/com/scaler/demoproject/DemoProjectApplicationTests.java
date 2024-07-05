@@ -14,37 +14,37 @@ import java.util.List;
 @SpringBootTest
 class DemoProjectApplicationTests {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
+//    @Autowired
+//    private ProductRepository productRepository;
+//    @Autowired
+//    private CategoryRepository categoryRepository;
 
     @Test
     void contextLoads() {
     }
 
-    @Test
-    void testingQueries() {
-//        List<Product> products = productRepository.getProductsByCategoryId(1L);
-//        System.out.println(products.get(0));
+//    @Test
+//    void testingQueries() {
+////        List<Product> products = productRepository.getProductsByCategoryId(1L);
+////        System.out.println(products.get(0));
+//
+////        List<Product> products = productRepository.getProductsByCategoryIdWithNativeQuery(1L);
+////        System.out.println(products.get(0));
+//
+//        List<ProductProjection> products = productRepository.getProductsByCategoryIdProjection(1L);
+//        System.out.println(products.get(0).getId());
+//    }
 
-//        List<Product> products = productRepository.getProductsByCategoryIdWithNativeQuery(1L);
-//        System.out.println(products.get(0));
-
-        List<ProductProjection> products = productRepository.getProductsByCategoryIdProjection(1L);
-        System.out.println(products.get(0).getId());
-    }
-
-    @Test
-    void fetchCategoryLazy() {
-        Category category = categoryRepository.findById(1L).get();
-        System.out.println(category.getId());
-        System.out.println("We are done here");
-
-        List<Product> currentProducts = category.getProducts();
-        //It is going to execute a new query to fetch the list of products
-        System.out.println(currentProducts.size());
-        System.out.println("Products Fetched");
-    }
+//    @Test
+//    void fetchCategoryLazy() {
+//        Category category = categoryRepository.findById(1L).get();
+//        System.out.println(category.getId());
+//        System.out.println("We are done here");
+//
+//        List<Product> currentProducts = category.getProducts();
+//        //It is going to execute a new query to fetch the list of products
+//        System.out.println(currentProducts.size());
+//        System.out.println("Products Fetched");
+//    }
 
 }

@@ -5,6 +5,7 @@ import com.scaler.demoproject.exceptions.ProductNotFoundException;
 import com.scaler.demoproject.model.Product;
 import com.scaler.demoproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +49,8 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public Page<Product> getAllProducts(@RequestParam("pageSize") int pageSize, @RequestParam("pageNumber") int pageNumber) {
+        return productService.getAllProducts(pageSize,pageNumber);
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
